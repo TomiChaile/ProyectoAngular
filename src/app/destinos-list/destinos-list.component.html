@@ -1,0 +1,31 @@
+<h3>Pasajes</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Destino</th>
+            <th>Fecha</th>
+            
+            <th>Precio</th>
+            <th>Clase</th>
+            <th>Agotado</th>
+            <th>Comprar</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let destino of destinos" [ngClass]="{'oferta' : destino.oferta}">
+            <td>{{destino.nombre}}</td>
+            <td>{{destino.fecha}}</td>
+           
+            <td>{{destino.precio | currency}}</td>
+            <td>{{destino.clase}}</td>
+            <td><span type="button" class="badge text-bg-warning" *ngIf="destino.stock==0">SOLD OUT</span></td>
+            <td>
+                <app-input-int [(cantidad)]="destino.cantidad" [max]="destino.stock" *ngIf="destino.stock" (maxStock)="maxStock($event)"></app-input-int>
+            </td>
+            <td>   
+                <button class="btn btn-primary" (click)="addReserva(destino)">Comprar</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
